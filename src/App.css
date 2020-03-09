@@ -39,7 +39,14 @@
 
 .v-bar {
   vertical-align: bottom;
-  display: inline-block;
   background: green;
   margin: 5px;
+  width: 50px;
+}
+.transition{
+  background-color: #61dafb;
+}
+#root{
+  display: flex;
+  align-items:flex-end
 }
