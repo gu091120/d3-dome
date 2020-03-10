@@ -38,15 +38,18 @@
 }
 
 .v-bar {
-  vertical-align: bottom;
+  /* vertical-align: bottom; */
   background: green;
   margin: 5px;
   width: 50px;
+  position: absolute;
+  bottom: 0px;
 }
 .transition{
   background-color: #61dafb;
 }
 #root{
-  display: flex;
-  align-items:flex-end
+  /* display: flex;
+  align-items:flex-end */
+  position: relative;
 }

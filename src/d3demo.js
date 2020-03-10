@@ -1,8 +1,5 @@
 import { select } from "d3-selection";
-import {transition} from 'd3-transition';
-
-var trans = transition().duration(750)
-.ease();
+import { transition } from "d3-transition";
 
 let id = 0,
     data = [],
@@ -10,48 +7,55 @@ let id = 0,
     chartHeight = 200,
     chartWidth = 600;
 
+var trans = transition();
+
 function createData(data) {
     data.push({
-        uid: id++,
+        uid: Math.random(),
         count: Math.round(chartHeight * Math.random())
     });
 }
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 20; i++) {
     createData(data);
 }
 
 function init() {
-    randerData(data);
     data.shift();
     data.push({ uid: id++, count: Math.round(chartHeight * Math.random()) });
+    randerData(data);
+    console.log(data);
 }
 
 function randerData(datas) {
-
-    const selector = select("#root").style("height",chartHeight+50+"px").selectAll("div.v-bar");
+    const selector = select("#root")
+        .style("height", chartHeight + 50 + "px")
+        .selectAll("div.v-bar")
+        .data(datas, d => d.uid);
 
     selector
-        .data(datas)
         .enter()
         .append("div")
         .attr("class", "v-bar")
+        .style("left", (d, index) => (index-1) * 60 + "px")
         .append("span");
 
     selector
-        .data(datas)
-        .transition(trans)
+        .transition()
+        .duration(1500).delay(1400)
         .style("height", d => d.count + "px")
+        .style("left", (d, index) =>(index) * 60 + "px")
         .select("span")
         .text(d => d.count);
 
     selector
-        .data(datas)
         .exit()
-        .remove();  
+        .transition()
+        .duration(1200)
+        .style("height", d => "0px")
+        .style("left", (d, index) =>(index+1) * 60 + "px")
+        .remove();
 }
 
 setInterval(function() {
     init();
-}, 3000);
-
-
+}, 2000);
